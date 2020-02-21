@@ -9,7 +9,7 @@ export class RouterURL extends Component {
 		return (
 			<Router> 
 				<div>
-				<Switch> //wrap route và 
+				<Switch> 
 					<Route exact path="/" component={Index} />
 					<Route path="/login" component={Login} />
 					<Route component={Error} />
