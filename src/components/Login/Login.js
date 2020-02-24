@@ -18,18 +18,26 @@ export class Login extends Component {
 
 	handleChange = login =>{
 		this.setState({[login.target.name]: login.target.value});
-		console.log(this.state);
 	}
 
 	handleSubmit = login =>{
-
-		DataLink('login',this.state).then((result) => {
-			let responseJSON = result;
-			console.log(responseJSON);
-		});
-		this.setState({isRedirect: false}); //chuyển trang
+		if(this.state.lastname && this.state.registration_code){
+		DataLink('login',this.state).then((result) =>{
+			
+			console.log(result.data);
+			if(result.status === 200){
+				let resJSON = JSON.stringify(result.data);
+				console.log("login successful");
+				sessionStorage.setItem('userData', resJSON);
+				this.setState({isRedirect: true});
+			}
+			else 
+				{console.log("Login error");} });
+		}
 		login.preventDefault(); //ngăn load lại trang
-	}	
+	
+}
+
 			render() {
 				if(this.state.isRedirect){
 					return <Redirect to="/" />;
@@ -50,3 +58,4 @@ export class Login extends Component {
 			}
 		}
 		export default Login;
+
